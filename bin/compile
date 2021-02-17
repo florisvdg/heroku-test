@@ -1,0 +1,16 @@
+#!/bin/sh
+# bin/compile <build-dir> <cache-dir>
+
+set -e
+
+BUILD_DIR=$1
+
+vendor_dir=vendor/secrethub
+
+export SECRETHUB_CLI_INSTALL_DIR=$BUILD_DIR/$vendor_dir
+./util/install
+
+profile_path="$BUILD_DIR/.profile.d/secrethub.sh"
+mkdir -p $(dirname $profile_path)
+
+echo "export PATH=$HOME/$vendor_dir/bin:$PATH" >> $profile_path
